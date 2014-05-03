@@ -32,8 +32,8 @@ CFLAGS = -ansi -c -g -O0 -Wall
 # If you add or remove .c files to or from the projet, then update this macro accordingly.
 SOURCES = ListMan.c    \
           ListTest.c   \
-          SList.c      \
-          SListNode.c
+          DList.c      \
+          DListNode.c
 
 # Creates a macro named OBJECTS from SOURCES where each occurrence of .c in SOURCES is replaced by a .o in
 # OBJECTS. For example, if SOURCES=File1.c File2.c File3.c then OBJECTS would be File1.o File2.o File3.o.
