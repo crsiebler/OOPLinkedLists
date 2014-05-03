@@ -38,7 +38,10 @@ static void ListTestCmdAppend
     );
 
 /* Function declaration for ListTestCmdCopy() */
-???
+/* @TODO */
+static void ListTestCmdCopy
+    (
+    );
 
 static void ListTestCmdCreate
     (
@@ -49,30 +52,48 @@ static void ListTestCmdFind
     );
 
 /* Function declaration for ListTestCmdFindAt() */
-???
+/* @TODO */
+static void ListTestCmdFindAt
+    (
+    );
 
 static void ListTestCmdFree
     (
     );
 
 /* Function declaration for ListTestInsert() */
-???
+/* @TODO */
+static void ListTestInsert
+    (
+    );
 
 /* Function declaration for ListTestInsertAt() */
-???
+/* @TODO */
+static void ListTestInsertAt
+    (
+    );
 
 static void ListTestCmdPrint
     (
     );
 
 /* Function declaration for ListTestCmdPrintRev() */
-???
+/* @TODO */
+static void ListTestCmdPrintRev
+    (
+    );
 
 /* Function declaration for ListTestRemove() */
-???
+/* @TODO */
+static void ListTestRemove
+    (
+    );
 
 /* Function declaration for ListTestCmdRemoveAt() */
-???
+/* @TODO */
+static void ListTestCmdRemoveAt
+    (
+    );
 
 static void ListTestFileClose
     (
@@ -161,7 +182,13 @@ static void ListTestCmdAppend
  * Call ListManCreateList() to add the dstlist to the list manager database.
  * Print "copied ..."
  *------------------------------------------------------------------------------------------------------------*/
-???
+/* @TODO */
+static void ListTestCmdCopy
+    (
+    )
+{
+
+}
 
 /*--------------------------------------------------------------------------------------------------------------
  * FUNCT: ListTestCmdCreate
@@ -232,7 +259,13 @@ static void ListTestCmdFind
  *     Print "failed to findat ..."
  * End If
  *------------------------------------------------------------------------------------------------------------*/
-???
+/* @TODO */
+static void ListTestCmdFindAt
+    (
+    )
+{
+
+}
 
 /*--------------------------------------------------------------------------------------------------------------
  * FUNCT: ListTestCmdFree
@@ -304,7 +337,13 @@ static void ListTestCmdInsert
  *     Print "failed ..."
  * End If
  *------------------------------------------------------------------------------------------------------------*/
-???
+/* @TODO */
+static void ListTestCmdInsertAt
+    (
+    )
+{
+
+}
 
 /*--------------------------------------------------------------------------------------------------------------
  * FUNCT: ListTestCmdPrint
@@ -346,7 +385,13 @@ static void ListTestCmdPrint
  *     Print " ... does not exist"
  * End If
  *------------------------------------------------------------------------------------------------------------*/
-???
+/* @TODO */
+static void ListTestCmdPrintRev
+    (
+    )
+{
+
+}
 
 /*--------------------------------------------------------------------------------------------------------------
  * FUNCT: ListTestCmdRemove
@@ -385,7 +430,13 @@ static void ListTestCmdRemove
  *     Print "failed ..."
  * End If
  *------------------------------------------------------------------------------------------------------------*/
-???
+/* @TODO */
+static void ListTestCmdRemoveAt
+    (
+    )
+{
+
+}
 
 /*--------------------------------------------------------------------------------------------------------------
  * FUNCT: ListTestFileClose

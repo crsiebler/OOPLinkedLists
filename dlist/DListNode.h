@@ -31,7 +31,8 @@
 typedef struct DListNode_ {
     int                mData;  /* Each node stores a simple int. */
     struct DListNode_ *mNext;  /* Pointer to the next node in the list. NULL if this is the last node. */
-    ???                        /* Pointer to the prev node in the list. NULL if this is the last node. */
+    /* @TODO */
+    struct DListNode_ *mPrev; /* Pointer to the prev node in the list. NULL if this is the last node. */
 } DListNode;
 
 /*==============================================================================================================
@@ -66,7 +67,11 @@ extern DListNode *DListNodeGetNext
     );
 
 /* Function declaration for DListNodeGetPrev() */
-???
+/* @TODO */
+extern DListNode *DListNodeGetPrev
+    (
+    DListNode *pNode
+    );
 
 extern void DListNodeSetData
     (
@@ -80,7 +85,12 @@ extern void DListNodeSetNext
     DListNode *pNext
     );
 
-/* Function declaration for DListNodeSetPrev()
-???
+/* Function declaration for DListNodeSetPrev() */
+/* @TODO */
+extern void DListNodeSetPrev
+    (
+    DListNode *pNode,
+    DListNode *pNext
+    );
 
 #endif

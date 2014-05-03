@@ -114,7 +114,21 @@ DList *DListAppend
  * End While
  * Return copy_list
  *------------------------------------------------------------------------------------------------------------*/
-???
+/* @TODO */
+DList *DListCopy
+    (
+    DList *pSrcList
+    )
+{
+    assert(pSrcList);
+    DList *copy_list = DListAlloc();
+    DListNode *traverse = pSrcList->mHead;
+    while (NULL != traverse) {
+        DListAppend(copy_list, DListNodeGetData(traverse));
+        traverse = DListNodeGetNext(traverse);
+    }
+    return copy_list;
+}
 
 /*--------------------------------------------------------------------------------------------------------------
  * FUNCT: DListDebugPrint
@@ -125,7 +139,7 @@ void DListDebugPrint
     (
     FILE  *pStream,
     DList *pList
-)
+    )
 {
     DListNode *traverse;
     if (!pList) {
@@ -149,7 +163,27 @@ void DListDebugPrint
  * PCODE:
  * This is a pretty easy function to write. Just study DListDebugPrint().
  *------------------------------------------------------------------------------------------------------------*/
-???
+/* @TODO */
+void DListDebugPrintRev
+    (
+    FILE  *pStream,
+    DList *pList
+    )
+{
+    DListNode *traverse;
+    if (!pList) {
+        fprintf(pStream, "List is NULL.\n");
+        return;
+    }
+    fprintf(pStream, "[ ");
+    traverse = DListGetTail(pList);
+    while (traverse) {
+        DListNodeDebugPrint(pStream, traverse);
+        fprintf(pStream, " ");
+        traverse = DListNodeGetPrev(traverse);
+    }
+    fprintf(pStream, "]");
+}
 
 /*--------------------------------------------------------------------------------------------------------------
  * FUNCT: DListFindData
@@ -190,7 +224,23 @@ DListNode *DListFindData
  * End While
  * Return traverse
  *------------------------------------------------------------------------------------------------------------*/
-???
+/* @TODO */
+DListNode *DListFindIndex
+    (
+    DList *pList,
+    int pIndex
+    )
+{
+    assert(pList);
+    if (pIndex < 0 || pIndex >= DListGetSize(pList)) {
+        return NULL;
+    }
+    DListNode *traverse = DListGetHead(pList);
+    while (NULL != traverse && --pIndex >= 0) {
+        traverse = DListNodeGetNext(traverse);
+    }
+    return traverse;
+}
 
 /*--------------------------------------------------------------------------------------------------------------
  * FUNCT: DListFree
@@ -251,7 +301,25 @@ DListNode *DListGetHead
  * End If
  * Return -1
  *------------------------------------------------------------------------------------------------------------*/
-???
+/* @TODO */
+int DListGetIndex
+    (
+    DList *pList,
+    int pData
+    )
+{
+    assert(pList);
+    int index = 0;
+    DListNode *traverse = DListGetHead(pList);
+    while (NULL != traverse) {
+        if (DListNodeGetData(traverse) == pData) {
+            return index;
+        }
+        index++;
+        traverse = DListNodeGetNext(traverse);
+    }
+    return -1;
+}
 
 /*--------------------------------------------------------------------------------------------------------------
  * FUNCT: DListGetSize
@@ -290,7 +358,22 @@ DListNode *DListGetTail
  * If index < 0 Then Return null
  * Else Return DListInsertIndex(pList, index, pData)
  *------------------------------------------------------------------------------------------------------------*/
-???
+/* @TODO */
+DList *DListInsertBefore
+    (
+    DList *pList,
+    int bBefore,
+    int pData
+    )
+{
+    assert(pList);
+    int index = DListFindData(pList, bBefore);
+    if (index < 0) {
+        return NULL;
+    } else {
+        return DListInsertIndex(pList, index, pData);
+    }
+}
 
 /*--------------------------------------------------------------------------------------------------------------
  * FUNCT: DListInsertIndex
@@ -315,7 +398,34 @@ DListNode *DListGetTail
  * Increment the size of pList
  * Return pList
  *------------------------------------------------------------------------------------------------------------*/
-???
+/* @TODO */
+DList *DListInsertIndex
+    (
+    DList *pList,
+    int pIndex,
+    int pData
+    )
+{
+    assert(pList);
+    DListNode *index_node, *new_node;
+    if (DListIsEmpty(pList) || pIndex < 0 || pIndex >= DListGetSize(pList)) {
+        return NULL;
+    }
+    index_node = DListFindIndex(pList, pIndex);
+    if (NULL == index_node) {
+        return NULL;
+    }
+    new_node = DListNodeAlloc(pData, DListNodeGetPrev(index_node), index_node);
+    if (NULL != index_node->mPrev) {
+        DListNode *prev_index = index_node->mPrev;
+        DListNodeSetNext(prev_index, new_node); 
+    } else {
+        DListSetHead(pList, new_node);
+    }
+    DListNodeSetPrev(index_node, new_node);
+    DListSetSize(pList, DListGetSize(pList)+1);
+    return pList;
+}
 
 /*--------------------------------------------------------------------------------------------------------------
  * FUNCT: DListIsEmpty
@@ -360,7 +470,17 @@ DList *DListRemoveData
  * Define index_node as DListNode * <- DlistFindIndex(pList, pIndex)
  * Return DListNodeRemove(pList, index_node);
  *------------------------------------------------------------------------------------------------------------*/
-???
+/* @TODO */
+DList *DListRemoveIndex
+    (
+    DList *pList,
+    int pIndex
+    )
+{
+    assert(pList);
+    DListNode *index_node = DListFindIndex(pList, pIndex);
+    return DListNodeRemove(pList, index_node);
+}
 
 /*--------------------------------------------------------------------------------------------------------------
  * FUNCT: DListNodeRemove
@@ -394,7 +514,41 @@ DList *DListRemoveData
  * Decrement the size of pList
  * Return pList
  *------------------------------------------------------------------------------------------------------------*/
-???
+/* @TODO */
+static DList *DListNodeRemove
+    (
+    DList *pList,
+    DListNode *pNode
+    )
+{
+    assert(pList);
+    if (NULL == pNode) {
+        return NULL;
+    }
+    if (pNode == DListGetHead(pList)) {
+        DListSetHead(pList, pNode->mNext);
+        if (NULL != DListGetHead(pList)) {
+            DListNodeSetPrev(DListGetHead(pList), NULL);
+        }
+    } else if (pNode == DListGetTail(pList)) {
+        if (NULL != DListGetTail(pList)) {
+            DListNodeSetNext(pNode->mPrev, NULL);
+        }
+    } else {
+        DListNode *node_prev = pNode->mPrev;
+        if (NULL != node_prev) {
+            DListNodeSetNext(node_prev, pNode->mNext);
+            if (NULL != pNode->mNext) {
+                DListNode *node_next = pNode->mNext;
+                DListNode *b = node_next->mPrev;
+                DListNodeSetPrev(b, node_prev);
+            }
+        }
+    }
+    DListNodeFree(pNode);
+    DListSetSize(pList, DListGetSize(pList)-1);
+    return pList;
+}
 
 /*--------------------------------------------------------------------------------------------------------------
  * FUNCT: DListSetHead
